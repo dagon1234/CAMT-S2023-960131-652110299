@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout Playground</title>
+  <style>
+    .playground {
+      padding: 0;
+      margin: 0;
+      border: 1px solid #666;
+      width: 100%;
+      background-color: #EEEEEE;
+      min-height: 300px;
+      position: relative;
+    }
+    .playground > body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  
+  <h1>Layout with Flexbox</h1>
+  <p>create css classes for building layout/UI</p>
+  <p style="font-weight: bold;">DO NOT CHANGE A HTML STRUCTURE</p>
+  
+  <h2>Vertical Menu</h2>
+  <h3>example</h3>
+  <img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\vertical-menu.png">
+  <br>
+  <h3>playground</h3>
+  <div class="playground">
+    <style>
+        .menu-item{
+            width: 100px;
+            text-align: center;
+            border: 1px solid black;
+            margin: -1px;
+        }
+    </style>
+
+    <div class="menu-container">
+      <div class="menu-item">First Menu</div>
+      <div class="menu-item">Menu 2</div>
+      <div class="menu-item">Menu 3</div>
+      <div class="menu-item">Menu 4</div>
+      <div class="menu-item">Menu 5</div>
+      <div class="menu-item">Last Menu</div>
+    </div>
+  </div>
+
+  <h2>Header</h2>
+  <h3>example</h3>
+  <img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\header.png">
+  <br>
+  <h3>playground</h3>
+  <div class="playground">
+    <style>
+        .header-container{
+            display: flex;
+            justify-content:space-between;
+            padding: 10px;
+            border: 1px solid black;
+            margin: -1px;
+        }
+    </style>
+
+    <div class="header-container">
+      <div class="header-content-left"><img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\arrow-left-svgrepo-com (1).svg"
+        width="20"
+        height="20"
+        ></div>
+      <div class="header-content">Header</div>
+      <div class="header-content-right"><img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\add-square-svgrepo-com.svg"
+        width="20"
+        height="20"
+        ></div>
+    </div>
+  </div>
+
+  <h2>Navigation Tab</h2>
+  <h3>example</h3>
+  <img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\navigation-tab.png">
+  <br>
+  <h3>playground</h3>
+  <div class="playground">
+    <style>
+        .navigation-container{
+            display: flex;
+            justify-content:space-between;
+            padding: 10px;
+            border: 1px solid black;
+            margin: -1px;
+        }
+        .navigation-item{
+            text-align: center;
+        }
+    </style>
+
+    <div class="navigation-container">
+      <div class="navigation-item">
+        <div class="navigation-item-icon"><img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\clock-svgrepo-com.svg"
+            width="20"
+            height="20"></div>
+        <div class="navigation-item-label">
+          First Menu
+        </div>
+      </div>
+      <div class="navigation-item">
+        <div class="navigation-item-icon"><img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\security-protection-home-safety-svgrepo-com.svg"
+            width="20"
+            height="20"></div>
+        <div class="navigation-item-label">
+          Second Menu
+        </div>
+      </div>
+      <div class="navigation-item">
+        <div class="navigation-item-icon"><img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\wrench-svgrepo-com.svg"
+            width="20"
+            height="20"></div>
+        <div class="navigation-item-label">
+          Third Menu
+        </div>
+      </div>
+      <div class="navigation-item">
+        <div class="navigation-item-icon"><img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\security-protection-shield-svgrepo-com.svg"
+            width="20"
+            height="20"></div>
+        <div class="navigation-item-label">
+          Very long text Menu
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Card</h2>
+  <h3>example</h3>
+  <img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\card.png">
+  <br>
+  <h3>playground</h3>
+  <div class="playground">
+    <style>
+        .card-list-container{
+            background-color: white;
+            display:inline-block;
+            width: 225px;
+        }
+        .card-content-detail-section{
+            padding: 10px;
+        }
+    </style>
+
+    <div>
+      <div class="card-list-container">
+        <div class="card-container">
+          <div class="card-content">
+            <div class="card-content-image-section">
+              <img src="https://picsum.photos/id/237/200/300"
+              width="225">
+            </div>
+            <div class="card-content-detail-section">
+              <div class="product-name">
+                Elite Obsidian
+              </div>
+              <div class="product-description">
+                Awesome product from Mars made by hand of Ultraman
+              </div>
+              <div class="product-price">
+                1,000
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-list-container">
+        <div class="card-container">
+          <div class="card-content">
+            <div class="card-content-image-section">
+              <img src="https://picsum.photos/id/237/200/300"
+              width="225">
+            </div>
+            <div class="card-content-detail-section">
+              <div class="product-name">
+                Elite Obsidian
+              </div>
+              <div class="product-description">
+                Awesome product from Mars made by hand of Ultraman
+              </div>
+              <div class="product-price">
+                1,000
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-list-container">
+        <div class="card-container">
+          <div class="card-content">
+            <div class="card-content-image-section">
+              <img src="https://picsum.photos/id/237/200/300"
+              width="225">
+            </div>
+            <div class="card-content-detail-section">
+              <div class="product-name">
+                Elite Obsidian
+              </div>
+              <div class="product-description">
+                Awesome product from Mars made by hand of Ultraman
+              </div>
+              <div class="product-price">
+                1,000
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-list-container">
+        <div class="card-container">
+          <div class="card-content">
+            <div class="card-content-image-section">
+              <img src="https://picsum.photos/id/237/200/300"
+              width="225">
+            </div>
+            <div class="card-content-detail-section">
+              <div class="product-name">
+                Elite Obsidian
+              </div>
+              <div class="product-description">
+                Awesome product from Mars made by hand of Ultraman
+              </div>
+              <div class="product-price">
+                1,000
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-list-container">
+        <div class="card-container">
+          <div class="card-content">
+            <div class="card-content-image-section">
+              <img src="https://picsum.photos/id/237/200/300"
+              width="225">
+            </div>
+            <div class="card-content-detail-section">
+              <div class="product-name">
+                Elite Obsidian
+              </div>
+              <div class="product-description">
+                Awesome product from Mars made by hand of Ultraman
+              </div>
+              <div class="product-price">
+                1,000
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Sidebar</h2>
+  <h3>example</h3>
+  <img src="C:\Users\Asus\Desktop\basic web\CAMT-xxx-51211550-master\images\layouts\sidebar.png">
+  <br>
+  <h3>playground</h3>
+  <div class="playground">
+    <style>
+
+    </style>
+
+    <div class="sidebar-container">
+      <div class="sidebar-profile-section">
+        <div>I'm Header</div>
+      </div>
+      <div class="sidebar-menu-section">
+        <div class="sidebar-menu-item"> Menu 1</div>
+        <div class="sidebar-menu-item"> Menu 2</div>
+        <div class="sidebar-menu-item"> Menu 3</div>
+      </div>
+      <div class="sidebar-footer-section">
+        <div>
+          Logout
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</body>
+</html>
