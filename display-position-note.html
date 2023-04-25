@@ -129,7 +129,8 @@
             justify-content: center;
             width: 100%;
             align-items: center;
-            top: 15em;
+            top: 50%;
+
         }
         .fixde{
             
@@ -140,7 +141,14 @@
             padding: 1% 1%;
             opacity: 0.8;
         }
-
+        .draw{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0,0.5);
+            top: 0;
+            left: 0;
+        }
     </style>
 </head>
 <body>
@@ -225,14 +233,16 @@
     <h2> fixed width/height + right/top</h2>
     <div class="on-top">
         <div class="box-1">
-            <h2 class="circle" style="color: aliceblue;"> x </h2>
+            <h2 class="circle" style="color: rgb(255, 255, 255);"> x </h2>
         </div>
     </div>
+    <div class="draw">
     <div class="cookie">
         <div class="fixde">
             <h2 style="color: #bc5e5e;"> Happy Songkarn</h2>
         <h2 style="color: #bc5e5e;"> 2023 </h2>
     </div></div>
+</div>
     
 
 </body>
