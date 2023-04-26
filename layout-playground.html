@@ -35,15 +35,25 @@
   <div class="playground">
     <style>
         .menu-container{
-          margin: 5px;
-        }
-        .menu-item{
-            width: 100px;
-            text-align: center;
-            border: 1px solid black;
-            margin: -1px;
-            background-color: #b0b0b0;
-        }
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        border: 1px black solid;
+        border-bottom:none ;
+        margin:  10px;
+      }
+      .menu-item{
+        width: 100px;
+        text-align: center;
+        background-color: #afafaf;
+        border: 1px black solid;
+        border-top: none ;
+        border-right: none;
+        border-left: none;
+      }
+      .menu-item :last-of-type{
+        border-bottom: unset;
+      }
     </style>
 
     <div class="menu-container">
@@ -340,8 +350,8 @@
             background-color:white;
         }
         .sidebar-menu-section{
-            border: 1px solid black;
-            margin: -1px;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
             height: 240px;
             width: 250px;
             margin-left: -11px;
