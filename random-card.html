@@ -61,11 +61,11 @@
         const getcardType = document.getElementsByClassName("text-top")
         const getcardNumber = document.getElementsByClassName("text")
 
-        for(let i=0;i<= card.length;i++){
+        for(let i=0; i<= card.length; i++){
             getcardType[i].innerHTML = CARD_TYPE[random(CARD_TYPE.length)]
             getcardNumber[i].innerHTML = CARD_NUMBER[random(CARD_NUMBER.length)]
 
-            if (card ==='♦' || card ==='♥'){
+            if (getcardType ==='♦' || getcardType ==='♥'){
                 document.querySelector('.text-top').style.color='red'
                 document.querySelector('.text').style.color='red'
                 document.querySelector('.card').style.borderColor='red'
