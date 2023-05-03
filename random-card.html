@@ -19,6 +19,7 @@
                 border: 2px solid black;
                 margin: 47px;
                 margin-top: 100px;
+                border-radius: 10px;
             }
             .text{
                 margin-top: 100px;
@@ -43,6 +44,7 @@
         // card number and type
         var CARD_TYPE = ['♣', '♦', '♥', '♠']
         var CARD_NUMBER = ['A', '1', '2', '3', '4', '5', '6',' 7', '8', '9', '10', 'J', 'Q', 'K']
+        var card = document.querySelectorAll('.body > div')
         
         // random function
         // max: number > 0
@@ -56,18 +58,22 @@
         var cardNumber = CARD_NUMBER[random(CARD_NUMBER.length)]
         console.log(cardType, cardNumber)
 
-        
-
         const getcardType = document.getElementsByClassName("text-top")
-        getcardType[0].innerHTML = CARD_TYPE[random(CARD_TYPE.length)]
         const getcardNumber = document.getElementsByClassName("text")
-        getcardNumber[0].innerHTML = CARD_NUMBER[random(CARD_NUMBER.length)]
-        for(let i=0;i<= getcardType.length;i++){
+
+        for(let i=0;i<= card.length;i++){
             getcardType[i].innerHTML = CARD_TYPE[random(CARD_TYPE.length)]
             getcardNumber[i].innerHTML = CARD_NUMBER[random(CARD_NUMBER.length)]
-            if (cardType==='♦' || cardType==='♥'){
+
+            if (card ==='♦' || card ==='♥'){
                 document.querySelector('.text-top').style.color='red'
                 document.querySelector('.text').style.color='red'
+                document.querySelector('.card').style.borderColor='red'
+            }
+            else{
+                document.querySelector('.text-top').style.color='black'
+                document.querySelector('.text').style.color='black'
+                document.querySelector('.card').style.borderColor='black'
             }
         }
 
@@ -98,4 +104,3 @@
 </body>
 
 </html>
-
