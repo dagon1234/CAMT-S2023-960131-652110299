@@ -35,6 +35,14 @@
                 height: 100px;
                 font-size: 40px;
             }
+            /* สีแดงสำหรับ ♦ และ ♥ */
+            .text-top:contains("♦"), .text-top:contains("♥") {
+                color: red;
+            }
+
+            .text:contains("♦"), .text:contains("♥") {
+                color: red;
+            }
         </style>
     </head>
 <body>
@@ -42,7 +50,7 @@
         function randomCard(){
         // card number and type
         var CARD_TYPE = ['♣', '♦', '♥', '♠']
-        var CARD_NUMBER = ['A', '1', '2', '3', '4', '5', '6',' 7', '8', '9', '10', 'J', 'Q', 'K']
+        var CARD_NUMBER = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
         var card = document.querySelectorAll('.body > div')
         
         // random function
@@ -52,27 +60,29 @@
         return parseInt(Math.random() * max) % max
         }
 
-        // how to use random function
-        var cardType = CARD_TYPE[random(CARD_TYPE.length)]
-        var cardNumber = CARD_NUMBER[random(CARD_NUMBER.length)]
-        console.log(cardType, cardNumber)
-
         const getcardType = document.getElementsByClassName("text-top")
         const getcardNumber = document.getElementsByClassName("text")
+        const getCards = document.getElementsByClassName("card")
 
-        for(let i=0; i<= card.length; i++){
-            getcardType[i].innerHTML = CARD_TYPE[random(CARD_TYPE.length)]
-            getcardNumber[i].innerHTML = CARD_NUMBER[random(CARD_NUMBER.length)]
 
-            if (getcardType ==='♦' || getcardType ==='♥'){
-                document.querySelector('.text-top').style.color='red'
-                document.querySelector('.text').style.color='red'
-                document.querySelector('.card').style.borderColor='red'
-            }
-            else{
-                document.querySelector('.text-top').style.color='black'
-                document.querySelector('.text').style.color='black'
-                document.querySelector('.card').style.borderColor='black'
+        for(var i=0; i< card.length; i++){
+            console.log(i,card.length)
+            // how to use random function
+            var cardType = CARD_TYPE[random(CARD_TYPE.length)];
+            var cardNumber = CARD_NUMBER[random(CARD_NUMBER.length)];
+            getcardType[i].innerHTML = cardType;
+            getcardNumber[i].innerHTML = cardNumber;
+            console.log(getcardType[i],getcardNumber[i])
+            // Change color if cardType is ♦ or ♥
+            if (cardType === '♦' || cardType === '♥') {
+                
+                getcardType[i].style.color = 'red';
+                getcardNumber[i].style.color = 'red';
+                getCards[i].style.borderColor = "red";
+            } else {
+                getcardType[i].style.color = 'black';
+                getcardNumber[i].style.color = 'black';
+                getCards[i].style.borderColor = "black";
             }
         }
 
