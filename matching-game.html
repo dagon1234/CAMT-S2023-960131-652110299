@@ -117,8 +117,10 @@
             }
         }
         function renderCardList() {
-            // TODO: define cardZoneElm here
-            // before append any DOM(s), you need to clear all children of cardZoneElm
+            // card number and type
+            var CARD_TYPE = ['♣', '♦', '♥', '♠']
+            var CARD_NUMBER = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+            
             let cardZoneElm = document.getElementsByClassName('card-zone')
             
             cardZoneElm[0].innerHTML = ''
@@ -127,8 +129,7 @@
             shuffleCards()
 
 	        for (var idx=0; idx < cardList.length; idx++) {
-		        // TODO:
-		        // if isFaceDown is true, create a card component with 'face-down' class
+		        
                 if(cardList[idx].isFaceDown === true){
                     cardElm = htmlToElem(
 			        '<div class="card-face-down"><div class="card-title"></div><div class="card-body">?</div></div>'
