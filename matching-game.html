@@ -103,6 +103,32 @@
             { value: ['♥', 'J'], isFaceDown: true },
             { value: ['♥', 'Q'], isFaceDown: true },
             { value: ['♥', 'K'], isFaceDown: false },
+            { value: ['♦', 'A'], isFaceDown: true },
+            { value: ['♦', '2'], isFaceDown: false },
+            { value: ['♦', '3'], isFaceDown: true },
+            { value: ['♦', '4'], isFaceDown: false },
+            { value: ['♦', '5'], isFaceDown: true },
+            { value: ['♦', '6'], isFaceDown: true },
+            { value: ['♦', '7'], isFaceDown: true },
+            { value: ['♦', '8'], isFaceDown: false },
+            { value: ['♦', '9'], isFaceDown: true },
+            { value: ['♦', '10'], isFaceDown: true },
+            { value: ['♦', 'J'], isFaceDown: true },
+            { value: ['♦', 'Q'], isFaceDown: true },
+            { value: ['♦', 'K'], isFaceDown: false },
+            { value: ['♠', 'A'], isFaceDown: true },
+            { value: ['♠', '2'], isFaceDown: true },
+            { value: ['♠', '3'], isFaceDown: false },
+            { value: ['♠', '4'], isFaceDown: false },
+            { value: ['♠', '5'], isFaceDown: true },
+            { value: ['♠', '6'], isFaceDown: false },
+            { value: ['♠', '7'], isFaceDown: true },
+            { value: ['♠', '8'], isFaceDown: true },
+            { value: ['♠', '9'], isFaceDown: true },
+            { value: ['♠', '10'], isFaceDown: true },
+            { value: ['♠', 'J'], isFaceDown: true },
+            { value: ['♠', 'Q'], isFaceDown: true },
+            { value: ['♠', 'K'], isFaceDown: false },
         ]
         function htmlToElem(html) {
             let temp = document.createElement('template');
@@ -118,26 +144,37 @@
         }
         function renderCardList() {
             // card number and type
+            console.log(cardList.length)
             var CARD_TYPE = ['♣', '♦', '♥', '♠']
             var CARD_NUMBER = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
             
             let cardZoneElm = document.getElementsByClassName('card-zone')
-            
-            cardZoneElm[0].innerHTML = ''
             console.log(cardZoneElm)
             
+            cardZoneElm[0].innerHTML = ''
+            
             shuffleCards()
-
+            
 	        for (var idx=0; idx < cardList.length; idx++) {
 		        
                 if(cardList[idx].isFaceDown === true){
                     cardElm = htmlToElem(
 			        '<div class="card-face-down"><div class="card-title"></div><div class="card-body">?</div></div>'
 		            )
-                }else{ 
+                    cardElm.style.border = '1px white solid';
+                }else{
                     cardElm = htmlToElem(
 			        ' <div class="card"><div class="card-title">'+cardList[idx].value[0]+'</div><div class="card-body">'+cardList[idx].value[1]+'</div></div>'
-		            )
+                    )
+                    
+                    console.log(cardList[idx].value[0],cardList[idx].value[1])
+                    if (cardList[idx].value[0] === "♥" || cardList[idx].value[0] === "♦") {
+                        cardElm.style.color = 'red';
+                        cardElm.style.border = '1px red solid';
+                    } else {
+                        cardElm.style.color = 'black';
+                        cardElm.style.border = '1px black solid';
+                    }
                 }
 		        cardZoneElm[0].append(cardElm)
             }
@@ -150,10 +187,10 @@
               <div class="card-zone">
                 <div class="card">
                     <div class="card-title">
-                        ♣
+                        
                   </div>
                     <div class="card-body">
-                        9
+                        
                     </div>
                 </div>
                 <div class="card-face-down">
@@ -161,7 +198,7 @@
                         
                     </div>
                     <div class="card-body">
-                        ?
+                        
                     </div>
                 </div>
               </div>
