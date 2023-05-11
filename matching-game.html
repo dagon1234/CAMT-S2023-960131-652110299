@@ -34,6 +34,8 @@
             }
             .card{
                 border: 1px solid black;
+                border-radius:10px;
+                box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
                 width: 70px;
                 height: 100px;
                 background-color: white;
@@ -48,13 +50,23 @@
             }
             .card-title{
                 text-align: right;
+                margin-right: 5px;
             }
             .card-body{
                 text-align: center;
+                padding-top: 20px;
+                font-size: 20px;
+            }
+            .card-face-down .card-body{
+                margin-top: 15px;
+                font-size: 30px;
+                color: white;
             }
             .card-face-down{
                 background-color: gray;
                 border: 1px solid black;
+                box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+                border-radius:10px;
                 width: 70px;
                 height: 100px;
                 margin-right: 10px;
@@ -129,9 +141,11 @@
             return temp.content.firstChild;
         }
         function shuffleCards() {
-            for (let i = cardList.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [cardList[i], cardList[j]] = [cardList[j], cardList[i]];
+            for (var i = cardList.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1)); // สุ่มดัชนีสำหรับสมาชิกที่จะถูกสลับ
+                var temp = cardList[i];
+                cardList[i] = cardList[j];
+                cardList[j] = temp;
             }
         }
         function renderCardList() {
