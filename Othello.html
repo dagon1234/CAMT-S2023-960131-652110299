@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Othello</title>
+    <style>
+        #board {
+            width: 400px;
+            height: 400px;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+        }
+
+        .cell {
+            border: 1px solid black;
+            background-color: green;
+            cursor: pointer;
+        }
+
+        .piece {
+            border-radius: 50%;
+            width: 90%;
+            height: 90%;
+            margin: 5%;
+        }
+
+        .black {
+            background-color: black;
+        }
+
+        .white {
+            background-color: white;
+        }
+        #scoreboard {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .player-score {
+            display: flex;
+            align-items: center;
+        }
+
+        .player-score span {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .time {
+            font-weight: bold;
+        }
+        .valid-move {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="scoreboard">
+    <!--เพื่อแสดงคะแนนของผู้เล่น 2 คน-->
+        <div class="player-score">
+            <span>Player 1:</span>
+            <span id="player1-score">0</span>
+            <span class="time" id="player1-time">00:00</span>
+        </div>
+        <div class="player-score">
+            <span>Player 2:</span>
+            <span id="player2-score">0</span>
+            <span class="time" id="player2-time">00:00</span>
+        </div>
+    </div>
+    <div id="board"></div>
+    <!--เพื่อแสดงกระดาน Othello-->
+    <script>
+        var board = [
+        //เก็บข้อมูลเกี่ยวกับสถานะของกระดาน Othello 
+        //โดยใช้เครื่องหมายเป็นสตริงว่าง '' สำหรับช่องว่าง และ 'black' หรือ 'white' สำหรับเบี้ยวของผู้เล่น 2 คน
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', 'white', 'black', '', '', ''],
+            ['', '', '', 'black', 'white', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '']
+        ];
+
+        var currentPlayer = 'black';
+        //ที่เก็บสถานะของผู้เล่นปัจจุบัน เริ่มต้นด้วย 'black'
+
+        function createBoard() {
+        //ฟังก์ชันนี้ใช้สร้างกระดาน Othello โดยใช้ DOM manipulation เพื่อสร้างตารางและเบี้ยวที่จะวางลงบนกระดาน 
+        //ฟังก์ชันนี้จะถูกเรียกเมื่อหน้าเว็บโหลดขึ้นมา
+            var boardElement = document.getElementById('board');
+
+            for (var row = 0; row < 8; row++) {
+                for (var col = 0; col < 8; col++) {
+                    var cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+
+                    if (isValidMove(row, col)) {
+                        cell.classList.add('valid-move');
+                    }
+
+                    if (board[row][col] === 'black') {
+                        var piece = document.createElement('div');
+                        piece.className = 'piece black';
+                        cell.appendChild(piece);
+                    } else if (board[row][col] === 'white') {
+                        var piece = document.createElement('div');
+                        piece.className = 'piece white';
+                        cell.appendChild(piece);
+                    }
+
+                    cell.addEventListener('click', handleCellClick);
+                    boardElement.appendChild(cell);
+                }
+            }
+        }
+
+        function handleCellClick(event) {
+        //ฟังก์ชันนี้จะถูกเรียกเมื่อผู้เล่นคลิกที่เซลล์บนกระดาน 
+        //ฟังก์ชันจะตรวจสอบว่าการเลือกเซลล์นั้นเป็นที่ถูกต้องหรือไม่ และทำการพลิกเบี้ยวและเปลี่ยนผู้เล่นปัจจุบันตามกฎของเกม Othello
+            var clickedCell = event.target;
+            var row = parseInt(clickedCell.dataset.row);
+            var col = parseInt(clickedCell.dataset.col);
+
+            if (board[row][col] === '') {
+                if (isValidMove(row, col)) {
+                    flipPieces(row, col);
+                    board[row][col] = currentPlayer;
+                    clickedCell.innerHTML = '<div class="piece ' + currentPlayer + '"></div>';
+                    currentPlayer = (currentPlayer === 'black') ? 'white' : 'black';
+                    
+                    if (currentPlayer === 'white') {
+                    //การนับเวลาของผู้เล่นแต่ละคน
+                        stopTimer();
+                        startTimer();
+                    }
+                }
+            }
+        }
+        function isValidMove(row, col) {
+        // ฟังก์ชันนี้ตรวจสอบว่าตำแหน่งที่ผู้เล่นกำลังวางเบี้ยวเป็นตำแหน่งที่ถูกต้องหรือไม่
+            if (board[row][col] !== '') {
+                return false;
+            }
+
+            var directions = [
+                [-1, -1], [-1, 0], [-1, 1],
+                [0, -1],           [0, 1],
+                [1, -1],  [1, 0],  [1, 1]
+            ];
+
+            for (var i = 0; i < directions.length; i++) {
+                var dir = directions[i];
+                var newRow = row + dir[0];
+                var newCol = col + dir[1];
+
+                if (isValidPosition(newRow, newCol) 
+                && board[newRow][newCol] !== currentPlayer 
+                && board[newRow][newCol] !== '') {
+                    newRow += dir[0];
+                    newCol += dir[1];
+
+                    while (isValidPosition(newRow, newCol)) {
+                        if (board[newRow][newCol] === '') {
+                            break;
+                        }
+
+                        if (board[newRow][newCol] === currentPlayer) {
+                            return true;
+                        }
+
+                    newRow += dir[0];
+                    newCol += dir[1];
+                    }
+                }
+            }
+            return false;
+        }
+
+        function isValidPosition(row, col) {
+        // ฟังก์ชันนี้ตรวจสอบว่าตำแหน่งที่กำหนดอยู่ภายในขอบเขตของกระดานหรือไม่
+            return row >= 0 && row < 8 && col >= 0 && col < 8;
+        }
+
+        function flipPieces(row, col) {
+            //ฟังก์ชันนี้แปลงสีเบี้ยวที่ถูกจับกลับสีเบี้ยวตามกฎของเกม Othello
+            var directions = [
+                [-1, -1], [-1, 0], [-1, 1],
+                [0, -1],           [0, 1],
+                [1, -1],  [1, 0],  [1, 1]
+            ];
+
+            for (var i = 0; i < directions.length; i++) {
+                var dir = directions[i];
+                var newRow = row + dir[0];
+                var newCol = col + dir[1];
+
+                if (
+                    isValidPosition(newRow, newCol) &&
+                    board[newRow][newCol] !== currentPlayer &&
+                    board[newRow][newCol] !== ''
+                ) {
+                var piecesToFlip = [];
+
+                newRow += dir[0];
+                newCol += dir[1];
+
+                    while (isValidPosition(newRow, newCol)) {
+                        if (board[newRow][newCol] === '') {
+                            break;
+                        }
+
+                        if (board[newRow][newCol] === currentPlayer) {
+                            piecesToFlip.forEach((pos) => {
+                                var flipRow = pos[0];
+                                var flipCol = pos[1];
+                                board[flipRow][flipCol] = currentPlayer;
+
+                                document.querySelector('.cell[data-row="' +flipRow +'"][data-col="' +flipCol +'"]'
+                                ).innerHTML ='<div class="piece ' + currentPlayer + '"></div>';
+
+                            });
+                            break;
+                        }
+
+                        piecesToFlip.push([newRow, newCol]);
+                        newRow += dir[0];
+                        newCol += dir[1];
+                    }
+                }
+            }
+        }
+
+        var player1ScoreElement = document.getElementById('player1-score');
+        var player2ScoreElement = document.getElementById('player2-score');
+        var player1TimeElement = document.getElementById('player1-time');
+        var player2TimeElement = document.getElementById('player2-time');
+        var player1Score = 0;
+        var player2Score = 0;
+        var player1Time = 0;
+        var player2Time = 0;
+        var timerInterval;
+        //การนับเวลาในแต่ละรอบของผู้เล่น 
+        //และแสดงเวลาที่ผ่านไปในส่วนของ HTML สำหรับแต่ละผู้เล่นผ่าน player1-time และ player2-time ตามลำดับ
+        function startTimer() {
+            timerInterval = setInterval(updateTime, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function updateTime() {
+            if (currentPlayer === 'black') {
+                player1Time++;
+                player1TimeElement.textContent = formatTime(player1Time);
+            } else {
+                player2Time++;
+                player2TimeElement.textContent = formatTime(player2Time);
+            }
+        }
+
+        function formatTime(timeInSeconds) {
+            var minutes = Math.floor(timeInSeconds / 60);
+            var seconds = timeInSeconds % 60;
+            return padZero(minutes) + ':' + padZero(seconds);
+        }
+        function padZero(number) {
+            return (number < 10) ? '0' + number : number;
+        }
+
+        function updateScores() {
+            player1ScoreElement.textContent = player1Score;
+            player2ScoreElement.textContent = player2Score;
+        }
+    createBoard();
+</script>
+</body>
+</html>
