@@ -11,7 +11,7 @@
     <script>
 /* open crudcrud.com and then replace ID and resource name. */
 // BEGIN: configuration zone
-var CRUD_CURD_ID = "b4c7966f5ccd415a929ba6f7612d6488";
+var CRUD_CURD_ID = "e9b658e9447b46fbb85ca0493c19deb0";
 var CRUD_CURD_RESOURCE_NAME = "todo";
 var CURD_CURD_API_ENDPOINT =
   "https://crudcrud.com/api/" + CRUD_CURD_ID + "/" + CRUD_CURD_RESOURCE_NAME;
@@ -144,24 +144,28 @@ function deleteTodoItem(id, afterDeleteFunction) {
   });
 }
 function deleteAllTodoItems(afterDeleteAllFunction) {
-  var headers = new Headers();
-  headers.append("Content-Type", "application/json");
+  var confirmation = window.confirm("Are you sure you want to delete all items?");
+  if (confirmation) {
+    var headers = new Headers();
+    headers.append("Content-Type", "application/json");
 
-  var requestOptions = {
-    method: "DELETE",
-    headers: headers,
-  };
+    var requestOptions = {
+      method: "DELETE",
+      headers: headers,
+    };
 
-  fetch(CURD_CURD_API_ENDPOINT, requestOptions)
-  .then(function (response) {
-      if (response.ok) {
-        return response.json();
-      } 
-    })
-    .then(function (data) {
-      afterDeleteAllFunction();
-    })
+    fetch(CURD_CURD_API_ENDPOINT, requestOptions)
+      .then(function (response) {
+        if (response.ok) {
+          return response.json();
+        } 
+      })
+      .then(function (data) {
+        afterDeleteAllFunction();
+      })
+  }
 }
+
 
 
 window.onload = function () {
