@@ -2,20 +2,38 @@
   <body>
     <div class="container">
       <input type="text" id="todo-input" />
-      <button id="todo-add-button">add</button>
+      <button onclick="playAudio()" id="todo-add-button">add</button>
       <div id="todo-list-container">
       
       </div>
-      <button id="todo-delete-button">deleteAll</button>
     </div>
+    <audio id="myAudio1">
+        <source src="C:\Users\Asus\Desktop\basic web\X2Download.app - Café sounds ☕ _ เพลงประกอบคลิป Vlog น่ารักๆ ไม่มีลิขสิทธิ์ (64 kbps).mp3" type="audio/mpeg">
+      </audio>
+      <audio id="myAudio2">
+        <source src="C:\Users\Asus\Desktop\basic web\เปรียบเทียบคุณภาพเพลง MP3 ( 8 Kbps TO 320 Kbps ) 4K (64 kbps).mp3" type="audio/ogg">
+      </audio>
+    
     <script>
+
 /* open crudcrud.com and then replace ID and resource name. */
 // BEGIN: configuration zone
-var CRUD_CURD_ID = "e9b658e9447b46fbb85ca0493c19deb0";
+var CRUD_CURD_ID = "ac565a2d65ff4ae09c92e47e5584671f";
 var CRUD_CURD_RESOURCE_NAME = "todo";
 var CURD_CURD_API_ENDPOINT =
   "https://crudcrud.com/api/" + CRUD_CURD_ID + "/" + CRUD_CURD_RESOURCE_NAME;
 // END:configuration zone
+var x = document.getElementById("myAudio1");
+var y = document.getElementById("myAudio2")
+
+function playAudio() { 
+  y.pause();
+  x.play(); 
+} 
+function pauseAudio() { 
+  x.pause();
+  y.play(); 
+} 
 
 // BEGIN: application variables zone
 var APPLICATION_STATE = {
@@ -47,6 +65,7 @@ async function loadTodoList(afterLoadFunction) {
       afterLoadFunction(data);
     });
   });
+  // Add the following lines to play the audio on successful API response
 }
 
 function addNewTodoItem(value, afterAddFunction) {
@@ -71,6 +90,7 @@ function addNewTodoItem(value, afterAddFunction) {
 // END: API fetching zone
 
 // BEGIN: UI Control and logic zone
+/*--------------------------------------------------------------*/
 function bindEvents() {
     var addButtonElm = document.getElementById("todo-add-button");
   addButtonElm.addEventListener("click", function () {
@@ -83,15 +103,8 @@ function bindEvents() {
       });
     }
   });
-
-  var deleteButtonElm = document.getElementById("todo-delete-button");
-  deleteButtonElm.addEventListener("click", function () {
-    deleteAllTodoItems(function () {
-      refreshTodoList();
-    });
-  });
 }
-
+/*--------------------------------------------------------------*/
 function renderTodoList() {
   var todoListElm = document.getElementById("todo-list-container");
   todoListElm.innerHTML = "";
@@ -102,7 +115,7 @@ function renderTodoList() {
     var todoItemElm = htmlToElem(
       '<div class="todo-item">' +
         todoItem.name +
-        '<button class="delete-button">Delete</button>' +
+        '<button onclick="pauseAudio()" class="delete-button" >Delete</button>' +
         "</div>"
     );
     
@@ -118,13 +131,14 @@ function renderTodoList() {
     todoListElm.append(todoItemElm);
   }
 }
-
+/*--------------------------------------------------------------*/
 function refreshTodoList () {
   loadTodoList(function (data) {
     APPLICATION_STATE.todoList = data;
     renderTodoList();
   });
 }
+/*--------------------------------------------------------------*/
 function deleteTodoItem(id, afterDeleteFunction) {
   var headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -143,28 +157,7 @@ function deleteTodoItem(id, afterDeleteFunction) {
     } 
   });
 }
-function deleteAllTodoItems(afterDeleteAllFunction) {
-  var confirmation = window.confirm("Are you sure you want to delete all items?");
-  if (confirmation) {
-    var headers = new Headers();
-    headers.append("Content-Type", "application/json");
-
-    var requestOptions = {
-      method: "DELETE",
-      headers: headers,
-    };
-
-    fetch(CURD_CURD_API_ENDPOINT, requestOptions)
-      .then(function (response) {
-        if (response.ok) {
-          return response.json();
-        } 
-      })
-      .then(function (data) {
-        afterDeleteAllFunction();
-      })
-  }
-}
+/*--------------------------------------------------------------*/
 
 
 
